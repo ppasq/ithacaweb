@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <h1>{{ page.intro }}</h1>
+  </div>
+  {% if self.senior_management.all %}
+    <div class="container">
+      <h2 class="people-list-heading">{{ page.senior_management_intro }}</h2>
+        <div class="row">
+          {% for senior in self.senior_management.all %}
+            <div class="col-lg-3 col-md-3 col-sm-6">
+              <div class="card">
+                {% if senior.image %}
+                  {% image senior.image fill-288x288 as photo %}
+                  <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt }}" class="img-fluid card-img-top" />
+                {% else %}
+                  <img src="http://placehold.it/400&text=Please+update+me" width="400" height="400" alt="Please change me!" class="card-img-top" />
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ senior.title }}</h5>
+                  {% if senior.role %}
+                  <p class="card-text">{{ senior.role }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if self.people.all %}
+    <div class="container">
+      <h2 class="people-list-heading">{{ page.team_intro }}</h2>
+        <div class="row">
+          {% for person in self.people.all %}
+            <div class="col-lg-3 col-md-3 col-sm-6">
+              <div class="card" style="width: 18rem;">
+                {% if person.image %}
+                  {% image person.image fill-288x288 as photo %}
+                  <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt }}" class="img-fluid card-img-top" />
+                {% else %}
+                  <img src="http://placehold.it/400&text=Please+update+me" width="400" height="400" alt="Please change me!" class="card-img-top" />
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ person.title }}</h5>
+                  {% if senior.role %}
+                  <p class="card-text">{{ person.role }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+
+{% block head-extra %}
+{% image page.image fill-1920x600 as image %}
+<div class="jumbotron jumbotron-fluid" style="background-image:url('{{ image.url }}')">
+  <div class="container" style="padding-bottom: 4em; padding-top: 4em">
+    <h1 class="display-4">{{ page.title }}</h1>
+    {% if page.introduction %}
+        <p class="introduction">
+            {{ page.introduction }}
+        </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="container project-detail">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="row">
+                        <h1>{{ page.title }}</h1>
+
+                        <figure class="hidden-md-up">
+                            {% image page.image width-500 %}
+                        </figure>
+
+                        {% if page.introduction %}
+                            <p class="introduction">
+                                {{ page.introduction }}
+                            </p>
+                        {% endif %}
+
+                        {{ page.body }}
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="row">
+                        <figure class="hidden-md-down">
+                            {% image page.image width-500 %}
+                        </figure>
+                        <ul class="project-meta">
+                            {% if page.project_type %}
+                                <li>
+                                    <h4>Type</h4>
+                                    <p>{{ page.project_type }}</p>
+                                </li>
+                            {% endif %}
+                            {% with elements=page.elements.all %}
+                                {% if elements %}
+                                    <li>
+                                        <h4>Elements</h4>
+                                        <ul>
+                                            {% for element in elements %}
+                                                <li>
+                                                    {{ element.name }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            {% endwith %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

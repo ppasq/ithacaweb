@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load gallery_tags wagtailcore_tags wagtailimages_tags %}
+
+
+{% block head-extra %}
+{% image page.image fill-1920x600 as image %}
+<div class="jumbotron jumbotron-fluid" style="background-image:url('{{ image.url }}')">
+  <div class="container" style="padding-bottom: 4em; padding-top: 4em">
+    <h1 class="display-4">{{ page.hero_text }}</h1>
+    {% if page.hero_cta_link %}
+        <p class="lead">
+          <a href="{% pageurl page.hero_cta_link %}" class="hero-cta-link hvr-icon-forward">
+            {{ page.hero_cta }}
+          </a>
+        </p>
+    {% else %}
+        {{ page.hero_cta }}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+  {% if page.promo_image or page.promo_title or page.promo_text %}
+  <section class="row" style="background-image:url('{% image page.promo_image fill-200x200-c100 %}')">
+    <div class="col-12" style="padding-bottom: 4em; padding-top: 4em">
+      <p class="lead text-center">{{ page.promo_title }}</p>
+      {{ page.promo_text|safe }}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if page.body %}
+  <div class="container-fluid streamfield">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-7 streamfield-column">
+                  {{ page.body }}
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endif %}
+
+  {% if page.featured_section_1 %}
+    <section class="one">
+    {% for childpage in page.featured_section_1.specific.children|slice:"4" %}
+      <div class="row">
+        <div class="col-4">{% image childpage.image fill-900x480-c100 class="img-fluid" %}</div>
+        <div class="col-6">
+          <h2>{{ childpage.title }}</h2>
+          <p>{{ childpage.introduction|truncatewords:30 }}</p>
+        </div>
+      </div>
+    {% endfor %}
+    </section>
+  {% endif %}
+
+  {% if page.featured_section_2 %}
+  <div class="container">
+    <p class="lead text-center">Lorem ipsum dolor sit amet.</p>
+    <div class="row" style="padding-bottom: 4em; padding-top: 1em">
+      {% for childpage in page.featured_section_2.specific.children|slice:"4" %}
+      <div class="col-3">
+        {% image childpage.image fill-300x200-c100 class="img-fluid" %}
+        <p>{{ childpage.title }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if page.featured_section_3 %}
+  <div class="container">
+    <p class="lead text-center">{{ page.featured_section_3_title }}</p>
+    <div class="row" style="padding-bottom: 4em; padding-top: 1em">
+      {% for childpage in page.featured_section_3.specific.children|slice:"4" %}
+      <div class="col-3">
+        {% image childpage.image fill-300x200-c100 class="img-fluid" %}
+        <p>{{ childpage.title }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if page.clients %}
+  <div class="container-fluid">
+    <section class="clients">
+      <p class="lead text-center">{{ self.clients_title|safe }}</p>
+      <ul class="list-inline text-center">
+        {% for client in page.clients.all %}
+        <li class="list-inline-item">
+          {% if client.link %}<a href="{{ client.link }}">{% endif %}
+            {% image client.image max-250x80 %}
+          {% if client.link %}</a>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+  {% endif %}
+
+
+{% endblock content %}

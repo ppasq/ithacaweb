@@ -1,0 +1,116 @@
+@import "bootstrap";
+@import "fonts";
+@import "hamburger";
+
+/* Mixins */
+
+@mixin text-shadow {
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.25);
+}
+
+.container-fluid {
+  max-width: 1400px;
+}
+
+/* Nav */
+
+nav.bg-dark {
+  background: $primary !important;
+  background: linear-gradient(90deg, $primary 0,darken($primary, 10%)) !important;
+  .svg-inline--fa.fa-w-16 {
+    margin-top: 3px;
+    margin-bottom: -3px;
+  }
+}
+
+.navbar-brand {
+  img {
+    width: 100px;
+  }
+}
+
+/* Footer */
+
+footer {
+  background: $gray-800;
+  border-top: 4px solid $cyan;
+  color: white;
+  margin-top: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Standard Page */
+
+.standard-page {
+  background: $gray-100;
+  header {
+    background: white;
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: 4rem;
+    padding: 1rem 0 0.5rem;
+    width: 100%;
+  }
+}
+
+/* Jumbotron */
+
+.jumbotron {
+  h1 {
+    font-weight: 700;
+    @include text-shadow;
+  }
+  a {
+    background: rgba(0,0,0, 0.2);
+    border: 2px solid white;
+    border-radius: 2rem;
+    color: white;
+    line-height: 4rem;
+    padding: 0.75rem 2rem;
+    &:hover {
+      background: rgba(0,0,0, 0.4);
+      text-decoration: none;
+    }
+  }
+}
+
+/* Home Page */
+
+section.one {
+  .row {
+    background: $gray-700;
+    color: white;
+    h2 {
+      margin: 4rem 2rem 1rem;
+    }
+    p {
+      margin-left: 2rem;
+    }
+    &:nth-of-type(even) {
+      background: $gray-800;
+      .col-6 {
+        @extend .offset-md-2;
+      }
+      .col-4 {
+        @extend .order-1;
+      }
+    }
+  }
+}
+
+/* Projects */
+
+figcaption {
+  small {
+    font-size: 12px;
+    margin-left: 0.25rem;
+  }
+}
+
+/* Blog */
+
+.author {
+  img {
+    @extend .rounded-circle;
+  }
+}
